@@ -11,20 +11,20 @@ def client():
         yield client
 
 def test_create_user_route(client: FlaskClient):
-    response = client.post('/users', json={'name': 'John', 'email': 'john@example.com'})
+    response = client.post('/users', json={'name': 'Juan', 'email': 'juan@gmail.com'})
     data = response.get_json()
     assert response.status_code == 200
     assert 'message' in data
-    assert data['message'] == 'User created: John (john@example.com)'
+    assert data['message'] == 'User created: Juan (juan@gmail.com)'
 
 def test_get_user_route(client: FlaskClient):
-    client.post('/users', json={'name': 'John', 'email': 'john@example.com'})
+    client.post('/users', json={'name': 'Juan', 'email': 'juan@gmail.com'})
 
-    response = client.get('/users/John')
+    response = client.get('/users/Juan')
     data = response.get_json()
     assert response.status_code == 200
     assert 'message' in data
-    assert data['message'] == 'User found: John (john@example.com)'
+    assert data['message'] == 'User found: Juan (Juan@gmail.com)'
 
 def test_get_user_route_user_not_found(client: FlaskClient):
     response = client.get('/users/NonExistingUser')
